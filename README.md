@@ -1,6 +1,6 @@
 Project Elk consists of building out a cloud network for a web appliction and setting up an ELK stack server to monitor its network traffic. A deployed and configured the ELK stack with beats (data collection tools) including Filebeat and Metricbeat.
 
-I initially created a virtual network, deployed a jump box running an Ansible Docker container, and used that container to configure VMs running DVWA containers.
+Initially created a virtual network, deployed a jump box running an Ansible Docker container, and used that container to configure VMs running DVWA containers.
 Virtual networks, virtual machines, network security groups, load balancer
 
 Monitoring to detect whatever you want: Log in attempts, file changes, etc/password changes, sensitive changes to files, adding new users, anything unusual on the system, when somebody opens files, changes to cron tabs
@@ -25,6 +25,8 @@ Metricbeat records machine metrics, such as uptime.  Metricbeat collects data fr
 
 
 ______________________________________________
+
+
 
 
 A summary of the Security Group Rules for RedTeamSG:
@@ -67,4 +69,100 @@ Destination Port Range = 5601
 Priority = 300
 
 Then delete deny all rule
+
+______________________________________
+
+ELK Configuration:
+
+Ansible was used to automate configuration of the ELK machine.  Ansible allows for easy deployment and management of containers through infrastructure as code. Playbooks can be developed and deployed, so that individual virtual machines do not have to be shut down and updated one at a time.  Many virtual machines’ configurations may be updated concurrently and deployed at once with Ansible.
+
+- Create a Virtual Network for ELK
+	-Add peering between the ELK network and the RedTeam network
+- Create an ELK Virtual Machine on Azure with an SSH key through the Jump Box Ansible Container
+- Download and configure the ELK Virtual Machine by adding the ELK Virtual Machine to the Ansible Host file and creating a YML ELK playbook file.
+- Add an incoming rule on the Elk Server Security Group for incoming traffic to flow through port 5601
+
+ELK yml file:
+
+- name: Config elk VM with Docker
+  hosts: elk
+  remote_user: sysadmin
+  become: true
+  tasks:
+
+
+- name: Use more memory
+  sysctl:
+    name: vm.max_map_count
+    value: '262144'
+    state: present
+    reload: yes
+
+
+The playbook should then install the following services:
+•	docker.io
+•	python3-pip
+•	docker, which is the Docker Python pip module.
+- name: Configure Elk VM with Docker
+	  hosts: elkservers
+	  remote_user: elk
+	  become: true
+	  tasks:
+	    # Use apt module
+	    - name: Install docker.io
+	      apt:
+	        update_cache: yes
+	        name: docker.io
+	        state: present
+	
+
+	      # Use apt module
+	    - name: Install pip3
+	      apt:
+	        force_apt_get: yes
+	        name: python3-pip
+	        state: present
+	
+
+	      # Use pip module
+	    - name: Install Docker python module
+	      pip:
+	        name: docker
+	        state: present
+	
+
+	      # Use command module
+	    - name: Increase virtual memory
+	      command: sysctl -w vm.max_map_count=262144
+	
+
+	      # Use sysctl module
+	    - name: Use more memory
+	      sysctl:
+	        name: vm.max_map_count
+	        value: "262144"
+	        state: present
+	        reload: yes
+	
+
+	      # Use docker_container module
+	    - name: download and launch a docker elk container
+	      docker_container:
+	        name: elk
+	        image: sebp/elk:761
+	        state: started
+	        restart_policy: always
+	        published_ports:
+	          - 5601:5601
+	          - 9200:9200
+	          - 5044:5044
+
+1. Run "sudo docker pull cyberxsecurity/ansible"
+1. installs Trilogy created containers
+2. Run "sudo docker run -ti cyberxsecurity/ansible:latest bash"
+1. Creates container
+3. Run "sudo docker list -a"
+1. Note the name of the container
+4. Run "sudo docker start [container name]"
+5. Run "sudo docker attach [container name]"
 
