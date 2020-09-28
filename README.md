@@ -166,3 +166,46 @@ The playbook should then install the following services:
 4. Run "sudo docker start [container name]"
 5. Run "sudo docker attach [container name]"
 
+____________________________________
+
+Using the Playbook:
+
+In order to use the playbook, the Ansible control node must be considered configured. After the Ansible control node is provisioned: 
+
+SSH into the Ansible Container control node and follow the steps below:
+- Copy the filebeat-playbook.yml file to /etc/ansible/files/.
+- Update the filebeat-playbook.yml file to include the IP address of my ELK machine.
+- Run the playbook ansible-playbook filebeat-playbook.yml, and navigate to the Filebeat installation page on the ELK server GUI to check that the installation worked as expected.
+Run "curl localhost/setup.php" on both Web-1 and Web-2 to check installation worked as expected.
+
+
+Editing Ansible files for access
+1. In the Ansible container
+1. Go the "/etc/ansible" directory
+2. Open ansible.cfg file
+1. Add "remote-user=[username]"
+3. Open hosts file
+1. Add "[webservers]" <-- actually type that exact string in the quotations. with the
+brackets included
+2. Add "[Private IP of Web-1]" (should be 10.0.0.5 if everything else went correctly)
+3. Add "[Private IP of Web-2]" (should be 10.0.0.6 if everything else went correctly)
+4. After each IP address, put a space and append "ansible_python_interpreter=/usr/bin/python3" to the end
+
+15. Creating and Running YAML file
+2. In the ansible container
+1. Create "playbook.yml" and paste the .yaml file from Github 
+2. Run "ansible-playbook /etc/ansible/playbook.yml"
+1. May take a while for this command to finish running
+2. Should be no red or error notifications. Yellow, or "changed", is fine.
+
+In the /etc/ansible directory open and edit the ansible.cfg hosts file to add additional hosts and run playbooks on specific machines.  Add [ELK] in the ansible.cnfg file and specify each DVWA virtual machines’ private IP address.
+
+
+_____________________________________
+
+Navigate to URL below to check that the ELK server is running:
+
+http://104.42.170.179:5601/app/kibana
+
+http://[my.VM.IP]:5601/app/kibana
+
