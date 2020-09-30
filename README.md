@@ -1,10 +1,10 @@
-Project Elk consists of building out a cloud network for a web appliction and setting up an ELK stack server to monitor network traffic. The deployed and configured ELK stack included Filebeat and Metricbeat data collection tools.
+Project Elk consists of building out a cloud network in Azure for a web appliction and setting up an ELK stack server to monitor its network traffic. The deployed and configured ELK stack included Filebeat and Metricbeat data collection tools.
 
-Initially created a virtual network, deployed a jump box and installed Docker to spin up an Ansible container.  Utilizing an ansible playbook, provisioned a DVWA web application onto two VMs.
+Initially created a virtual network, deployed a jump box and installed Docker to spin up an Ansible container.  Utilized an ansible playbook to provision a DVWA web application onto two virtual machines (VMs).
 
 The cloud network included virtual networks, virtual machines, network security groups, and load balancers.
 
-ELK monitoring to detect: Log in attempts, file changes, password modifications, changes to sensitive files, adding new users, anything unusual on the system, when somebody opens files, changes to cron tabs
+ELK monitoring to detect: Log in attempts, file changes, password modifications, changes to sensitive files, adding new users, unusual activity on the system, file access logs, cron tabs changes
 ______________________________________________
 
 Description of the Topology:
@@ -13,11 +13,13 @@ The main purpose of this network is to expose a load-balanced and monitored inst
 
 Load balancing ensures that the application will be highly redundant, in addition to restricting traffic to the network.
 
-The network security group allows access to the network only through the Jump Box or the Load Balancer.  This reduces the attack surface and protects Web-1 and Web-2 VMs vital programs and data. Load balancers prevent direct access to the Web boxes, which hold sensitive information, and possible exploits resulting from a direct connection.  Load balancers also distribute traffic across the Web servers / VMs to add redundancy in case of denial of service attacks.  The Jump Box is an access point to connect to virtual machines on the network, while preventing direct external access to valuable data on VMs.
+The network security group allows access to the virtual network only through the Jump Box or the Load Balancer.  This reduces the attack surface and protects the web application VMs' vital programs and data. Load balancers prevent direct access to the Web boxes, which hold sensitive information, and possible exploits resulting from a direct connection.  Load balancers also distribute traffic across the web servers / VMs to add redundancy in case of denial of service attacks.  The Jump Box is an access point to connect to virtual machines on the network, while preventing direct external access to valuable data on VMs.
 
-Integrating an ELK server allows users to easily monitor the vulnerable VMs for changes to the log files and system configuration.  Log in attempts, file changes, etc/password changes, sensitive changes to files, adding new users, anything unusual on the system, when somebody opens files
+Integrating an ELK server allows users to easily monitor the vulnerable VMs for changes to the log files and system configuration.
 
-ELK supports special-purpose data collection modules called Beats.  Beats collect specific data of interest from specified machines rather than gathering all log data.
+ELK supports special-purpose data collection modules called Beats.  
+
+Beats collect specific data of interest from specified machines rather than gathering all log data.
 Filebeat collects data about the file system including which files changed and when.  Filebeat logs files including from those such as Apache, Microsoft Azure tools, Nginx web server, and MySQL databases. Filebeat has to be installed on the VMs in order to monitor them.
 
 Metricbeat records machine metrics, such as uptime.  Metricbeat collects data from the operating system and services running on the server.
