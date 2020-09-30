@@ -4,7 +4,7 @@ Initially created a virtual network, deployed a jump box and installed Docker to
 
 Cloud network included virtual networks, virtual machines, network security groups, and load balancers.
 
-ELK monitoring to detect: Log in attempts, file changes, etc/password changes, sensitive changes to files, adding new users, anything unusual on the system, when somebody opens files, changes to cron tabs
+ELK monitoring to detect: Log in attempts, file changes, password modifications, changes to sensitive files, adding new users, anything unusual on the system, when somebody opens files, changes to cron tabs
 ______________________________________________
 
 Description of the Topology:
