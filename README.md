@@ -1,9 +1,10 @@
-Project Elk consists of building out a cloud network for a web appliction and setting up an ELK stack server to monitor its network traffic. A deployed and configured ELK stack includes the beats (data collection tools) Filebeat and Metricbeat.
+Project Elk consists of building out a cloud network for a web appliction and setting up an ELK stack server to monitor network traffic. A deployed and configured ELK stack includes Filebeat and Metricbeat (data collection tools).
 
-Initially created a virtual network, deployed a jump box and installed Docker to spin up an Ansible container.  Utilizing an ansible playbook provisioned a DVWA web application onto two VMs.
-Virtual networks, virtual machines, network security groups, load balancer
+Initially created a virtual network, deployed a jump box and installed Docker to spin up an Ansible container.  Utilizing an ansible playbook, provisioned a DVWA web application onto two VMs.
 
-Monitoring to detect whatever you want: Log in attempts, file changes, etc/password changes, sensitive changes to files, adding new users, anything unusual on the system, when somebody opens files, changes to cron tabs
+Cloud network included virtual networks, virtual machines, network security groups, and load balancers.
+
+ELK monitoring to detect: Log in attempts, file changes, etc/password changes, sensitive changes to files, adding new users, anything unusual on the system, when somebody opens files, changes to cron tabs
 ______________________________________________
 
 Description of the Topology:
