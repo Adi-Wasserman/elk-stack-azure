@@ -30,7 +30,7 @@ ______________________________________________
 
 
 
-A summary of the Security Group Rules for RedTeamSG:
+A summary of the Security Group Rules for RedTeamSG & ELKServerSG:
 
 Initially when setting up a Virtual Network a “Deny all rule” Inbound Security Rule should be put in place until the Project is ready to be launched with the correct security measures.
 
